@@ -197,6 +197,35 @@
             background-color: #fcfcfc;
         }
 
+        .invoice-footer h4 {
+            color: var(--text-dark);
+            font-size: 15px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
         .footer-note {
             color: var(--text-muted);
             font-size: 14px;
@@ -254,6 +283,11 @@
             .info-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 12px;
             }
 
             .actions {
@@ -371,6 +405,13 @@
         </div>
 
         <div class="invoice-footer">
+            <h4>Kontak Kami</h4>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i>Gor Jimmy NTT, Kab. Sumba Timur</p>
+                <p><i class="fas fa-phone"></i>+62 823-5072-8879</p>
+                <p><i class="fas fa-envelope"></i> info@gorjimmy.com</p>
+            </div>
+
             <p class="footer-note">
                 <i class="fas fa-heart" style="color: var(--accent);"></i> Terima kasih telah memilih <strong>GOR Jimmy</strong> untuk permainan Anda!
                 <br>Harap tunjukkan invoice digital ini kepada petugas saat tiba di lokasi.

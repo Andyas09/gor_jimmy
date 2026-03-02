@@ -194,13 +194,9 @@ class BookingController extends Controller
             if (!$booking) {
                 return response()->json(['error' => 'Booking tidak ditemukan'], 404);
             }
-
-            // Parse total_bayar - bisa berupa angka atau string terformat
             $totalHarga = (int) preg_replace('/[^0-9]/', '', $booking->total_bayar);
             $dp = (int) $booking->dp;
             $sisa = $totalHarga - $dp;
-
-            // Debug log
             \Log::info('Repayment Check', [
                 'kode' => $request->existing_kode,
                 'total_bayar_raw' => $booking->total_bayar,
@@ -293,8 +289,6 @@ class BookingController extends Controller
             $orderId = 'ORDER-' . strtoupper(Str::random(8));
 
             $jenis = (Auth::check() && Auth::user()->role === 'Member') ? 'Member' : 'Biasa';
-
-            // simpan booking status pending
             foreach ($jadwalIds as $jid) {
                 Booking::create([
                     'id' => 'BO-' . strtoupper(Str::random(6)),
@@ -311,8 +305,6 @@ class BookingController extends Controller
                     'status' => 'Pending',
                 ]);
             }
-
-            // konfigurasi midtrans
             Config::$serverKey = config('midtrans.server_key');
             Config::$isProduction = config('midtrans.is_production');
             Config::$isSanitized = true;

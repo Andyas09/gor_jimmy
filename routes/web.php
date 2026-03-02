@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\HargaController;
 
 // User
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -59,6 +60,17 @@ Route::middleware(['auth', 'Role:Admin'])->name('galeri.')->group(function () {
         ->name('destroy');
 });
 
+// Harga
+Route::middleware(['auth', 'Role:Admin'])->name('harga.')->group(function () {
+    Route::get('/harga-index', [HargaController::class, 'index'])
+        ->name('index');
+    Route::post('/store-harga', [HargaController::class, 'store'])->name('store');
+    Route::put('/update-harga-{id}', [HargaController::class, 'update'])
+        ->name('update');
+    Route::delete('/destroy-harga-{id}', [HargaController::class, 'destroy'])
+        ->name('destroy');
+});
+
 // Jadwal Operasional
 Route::middleware(['auth', 'Role:Admin'])->name('jadwal.')->group(function () {
     Route::get('/jadwal-index', [JadwalOperasionalController::class, 'index'])
@@ -85,12 +97,13 @@ Route::middleware(['auth', 'Role:Admin,Member'])->name('booking.')->group(functi
 Route::middleware(['auth', 'Role:Admin'])->name('user.')->group(function () {
     Route::get('/user-index', [UserController::class, 'index'])
         ->name('index');
-    Route::post('/store-user', [UserController::class, 'store'])->name('store');
-    Route::put('/update-user-{id}', [UserController::class, 'update'])
+    Route::post('/user-store', [UserController::class, 'store'])->name('store');
+    Route::put('/user-update-{id}', [UserController::class, 'update'])
         ->name('update');
-    Route::delete('/destroy-user-{id}', [UserController::class, 'destroy'])
+    Route::delete('/user-destroy-{id}', [UserController::class, 'destroy'])
         ->name('destroy');
 });
+
 Route::middleware(['auth', 'Role:Member'])->name('profil.')->group(function () {
     Route::get('/profil', [MemberController::class, 'profil'])
         ->name('index');
@@ -103,3 +116,9 @@ Route::middleware(['auth', 'Role:Member'])->name('profil.')->group(function () {
 
 // Member
 // Redundant route removed to resolve conflict with /dashboard URI in Admin group
+
+// Laporan
+Route::middleware(['auth', 'Role:Admin'])->group(function () {
+    Route::get('/laporan-index', [\App\Http\Controllers\LaporanController::class, 'index'])
+        ->name('laporan.index');
+});
